@@ -13,4 +13,6 @@ public interface WordNodeInterface {
 	public WordNode getRightLink();
 	public void setRightThread(boolean b);
 	public boolean getRightThread();
+	public void setLeftThread(boolean b);
+	public boolean getLeftThread();
 }
