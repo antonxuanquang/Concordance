@@ -12,11 +12,14 @@ import Theme.QButton;
 import Theme.QLabel;
 import Theme.QTextField;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
 
 public class Lab2 extends JFrame {
 
 	Color primary = new ColorTheme().primary;
 	Color secondary = new ColorTheme().secondary;
+	private JPanel panel2;
 	
 	
 	/**
@@ -47,48 +50,45 @@ public class Lab2 extends JFrame {
 		contentPane.setLayout(new MigLayout("", "[]", "[97.00][]"));
 		
 		// Row A
-		JPanel panel = new JPanel();
-		contentPane.add(panel, "span, pushx, growx");
-		panel.setLayout(new MigLayout("", "[][][][]", "[][][][]"));
-		
-		// Row 1
-		QButton btnSelectFilterFile = new QButton("Select Filter File", secondary, primary);
-		panel.add(btnSelectFilterFile, "cell 2 0,pushx ,width 130!,alignx right,height 20!");
-		
-		QButton btnSelectTextFile = new QButton("Select Text File", secondary, primary);
-		panel.add(btnSelectTextFile, "cell 3 0 2 1,pushx ,width 130!,alignx left,height 20!");
-		
-		
-		//Row 2
-		QLabel lblTextfieldHereTo = new QLabel("TextField here to show file name", primary);
-		panel.add(lblTextfieldHereTo, "cell 1 1 4 1,alignx center,aligny center");
-		
-		
-		// Row 3
-		QLabel label = new QLabel("TextField here to show file name", primary);
-		panel.add(label, "cell 1 2 4 1,alignx center,aligny center");
-		
-		
-		// Row 4
-		QLabel lblSearch = new QLabel("Search: ", primary);
-		panel.add(lblSearch, "cell 1 3,width 50!,height 20!");
-		
-		QTextField tf = new QTextField(secondary, primary);
-		panel.add(tf, "cell 2 3,width 130!,alignx left,height 20!");
-		
-		QButton btnNewButton = new QButton("New button", secondary, primary);
-		panel.add(btnNewButton, "cell 3 3,alignx right");
-		
-		QButton btnNewButton_1 = new QButton("New button", secondary, primary);
-		panel.add(btnNewButton_1, "cell 4 3,alignx left, wrap");
-		
-		// Row B
-		JPanel panel2 = new JPanel();
+		panel2 = new JPanel();
+		panel2.setBorder(new TitledBorder(null, "Panel of Results", TitledBorder.LEADING, TitledBorder.TOP, null, primary));
 		contentPane.add(panel2, "span ,push ,grow");
 		
+		// Row B
+		JPanel panel = new JPanel();
+		contentPane.add(panel, "span, pushx, growx");
+		panel.setLayout(new MigLayout("", "[][][]", "[][][]"));
+		
+		// Row 1
+		QButton btnLoadCommonWords = new QButton("Load Common Words", secondary, primary);
+		panel.add(btnLoadCommonWords , "cell 0 0, sg leftButton");
+		
+		QButton btnDisplayAll = new QButton("Display All", secondary, primary);
+		panel.add(btnDisplayAll, "cell 2 0, sg rightButton, wrap");
 		
 		
+		// Row 2
+		QButton btnRemoveCommonWords = new QButton("RemoveCommonWords", secondary, primary);
+		panel.add(btnRemoveCommonWords, "cell 0 1, sg leftButton");
 		
+		QLabel lblSearch = new QLabel("Search: ", primary);
+		panel.add(lblSearch, "split 3,pushx ,alignx center");
+		
+		QTextField tf = new QTextField(secondary, primary);
+		panel.add(tf, "width 100:150:200");
+		
+		QButton btnSearch = new QButton("Search", secondary, primary);
+		panel.add(btnSearch);
+		
+		QButton btnGetSmallest = new QButton("Get Smallest", secondary, primary);
+		panel.add(btnGetSmallest, "cell 2 1, sg rightButton, wrap");
+		
+		// Row 3
+		QButton btnLoadConcordance = new QButton("Load Concordance", secondary, primary);
+		panel.add(btnLoadConcordance, "cell 0 2, sg leftButton");
+		
+		QButton btnGetBiggest = new QButton("Get Biggest", secondary, primary);
+		panel.add(btnGetBiggest, "cell 2 2, sg rightButton, wrap");
 		
 		
 		
