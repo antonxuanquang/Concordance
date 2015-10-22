@@ -24,8 +24,8 @@ import javax.swing.JPanel;
 
 public class Lab2View extends JPanel {
 
-	MainController mainControl;
-	public Concordance model;
+	private MainController mainControl;
+	private Concordance model;
 	
 	Color primary = new ColorTheme().primary;
 	Color secondary = new ColorTheme().secondary;
@@ -65,11 +65,13 @@ public class Lab2View extends JPanel {
 		panel.add(btnLoadCommonWords , "cell 0 0, sg leftButton");
 		
 		btnDisplayAll = new QButton("Display All", secondary, primary);
+		btnDisplayAll.setEnabled(false);
 		panel.add(btnDisplayAll, "cell 2 0, sg rightButton, wrap");
 		
 		
 		// Row 2
 		btnRemoveCommonWords = new QButton("Remove Common Words", secondary, primary);
+		btnRemoveCommonWords.setEnabled(false);
 		panel.add(btnRemoveCommonWords, "cell 0 1, sg leftButton");
 		
 		QLabel lblSearch = new QLabel("Search: ", primary);
@@ -79,16 +81,20 @@ public class Lab2View extends JPanel {
 		panel.add(tf, "width 100:150:200");
 		
 		btnSearch = new QButton("Search", secondary, primary);
+		btnSearch.setEnabled(false);
 		panel.add(btnSearch);
 		
 		btnGetSmallest = new QButton("Get Smallest", secondary, primary);
+		btnGetSmallest.setEnabled(false);
 		panel.add(btnGetSmallest, "cell 2 1, sg rightButton, wrap");
 		
 		// Row 3
 		btnLoadConcordance = new QButton("Load Concordance", secondary, primary);
+		btnLoadConcordance.setEnabled(false);
 		panel.add(btnLoadConcordance, "cell 0 2, sg leftButton");
 		
 		btnGetBiggest = new QButton("Get Biggest", secondary, primary);
+		btnGetBiggest.setEnabled(false);
 		panel.add(btnGetBiggest, "cell 2 2, sg rightButton, wrap");
 	}
 

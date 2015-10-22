@@ -7,7 +7,7 @@ import View.Lab2View;
 
 public class MainController implements ActionListener{
 	
-	Lab2View view;
+	private Lab2View view;
 	
 	public MainController (Lab2View fromView) {
 		view = fromView;

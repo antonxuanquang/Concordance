@@ -5,8 +5,8 @@ import Model.Concordance;
 import View.Lab2View;
 
 public class Lab2 extends JFrame {
-	public Lab2View view;
-
+	private Lab2View view;
+	private Concordance model;
 	
 	/**
 	 * Launch the application.
@@ -19,12 +19,17 @@ public class Lab2 extends JFrame {
 	 * Create the frame.
 	 */
 	public Lab2() {
-		Concordance model = new Concordance();
+		model = new Concordance();
 		
+		createFrame();
+	}
+
+	private void createFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1013, 581);
 		view = new Lab2View(model);
 		setContentPane(view);
+		setVisible(true);
 	}
 
 }
