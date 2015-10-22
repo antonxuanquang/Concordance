@@ -39,7 +39,7 @@ public class MainController implements ActionListener{
 		else if (events.equals(view.btnBuildConcordance)) buildConcordance();
 	}
 
-	private void loadCommonWords() {
+	public void loadCommonWords() {
 		try {
 			// model
 			model.buildCommonWordsHash();
@@ -51,7 +51,7 @@ public class MainController implements ActionListener{
 		}
 	}
 	
-	private void buildConcordance() {
+	public void buildConcordance() {
 		try {
 			// model
 			model.buildConcordance();

@@ -4,12 +4,17 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JFileChooser;
+import javax.swing.text.html.HTMLDocument.HTMLReader.ParagraphAction;
 
 import Interface.WordNode;
 
@@ -20,47 +25,34 @@ public class ConcordanceBuilder {
 	public static WordNode buildConcordance () throws FileNotFoundException{
 //		String fileName = getFileName();
 		String fileName = "C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\"
-				+ "Fall 2015\\CoSc 20803\\Concordance\\AChristmasCarol.txt";
+				+ "Fall 2015\\CoSc 20803\\Concordance\\AChristmasCarol(large).txt";
 		
 		if (fileName == null) {
 			throw new FileNotFoundException("Unsuccessfully load text file !!");
 		}
 		
 		try {
-			BufferedReader br = new BufferedReader (new FileReader(fileName));
-			String paragraph = "";
-			String line;
+			String content = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
+			ArrayList<String> paragraphs = Splitter.splitIntoParagraphs(content);
 			int paragraphCount = 0;
 			int sentenceCount = 0;
-			while ((line = br.readLine()) != null) {
-				if (line.trim().equals("")) {
-					paragraphCount++;
-					Pattern re = Pattern.compile("[^.!?\\s][^.!?]*(?:[.!?](?!['\"]?\\s|$)[^.!?]*)*[.!?]?['\"]?(?=\\s|$)", Pattern.MULTILINE | Pattern.COMMENTS);
-				    Matcher reMatcher = re.matcher(paragraph);
-					String sentence = "";
-				    while (reMatcher.find()) {
-				    	sentence += " " + reMatcher.group();
-				    	String lastCharacter = sentence.substring(sentence.length() - 1, 
-								sentence.length());
-				    	if (".!?'".contains(lastCharacter)) {
-				    		sentenceCount++;
-				    		System.out.println(sentence + " " + sentenceCount);
-				    		sentence = "";
-				    	}
+			for (String paragraph: paragraphs) {
+				paragraphCount++;
+				ArrayList<String> sentences = Splitter.splitIntoSentences(paragraph);
+				for (String sentence: sentences) {
+					sentenceCount++;
+					ArrayList<String> words = Splitter.splitIntoWords(sentence);
+					for (String word: words) {
+						System.out.println(sentenceCount + " " + word);
 					}
-					paragraph = "";
-				} else {
-					paragraph += " " + line;
 				}
-				
-
-				
 			}
 			
 		} catch (IOException e) {}
-		
 		return null;
 	}
+	
+	
 	
 	static String getFileName() {
 		JFileChooser fc = new JFileChooser("C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\Fall 2015\\CoSc 20803\\Concordance");

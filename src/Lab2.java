@@ -20,16 +20,22 @@ public class Lab2 extends JFrame {
 	 */
 	public Lab2() {
 		model = new Concordance();
-		
+		view = new Lab2View(model);
 		createFrame();
 	}
 
 	private void createFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1013, 581);
-		view = new Lab2View(model);
 		setContentPane(view);
 		setVisible(true);
 	}
-
+	
+	public Concordance getModel() {
+		return model;
+	}
+	
+	public Lab2View getView() {
+		return view;
+	}
 }
