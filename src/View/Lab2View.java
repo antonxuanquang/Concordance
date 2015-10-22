@@ -25,14 +25,14 @@ import javax.swing.JPanel;
 public class Lab2View extends JPanel {
 
 	private MainController mainControl;
-	private Concordance model;
+	public Concordance model;
 	
 	Color primary = new ColorTheme().primary;
 	Color secondary = new ColorTheme().secondary;
 	private JPanel panel2;
 	private QTextField tf;
-	public QButton btnLoadCommonWords,btnDisplayAll, btnRemoveCommonWords,
-		btnSearch, btnGetSmallest, btnLoadConcordance, btnGetBiggest;
+	public QButton btnLoadCommonWords,btnDisplayAll, btnSearch, 
+		btnGetSmallest, btnBuildConcordance, btnGetBiggest;
 	
 	
 	
@@ -61,7 +61,7 @@ public class Lab2View extends JPanel {
 		panel.setLayout(new MigLayout("", "[][][]", "[][][]"));
 		
 		// Row 1
-		btnLoadCommonWords = new QButton("Load Common Words", secondary, primary);
+		btnLoadCommonWords = new QButton("Load Common Words File", secondary, primary);
 		panel.add(btnLoadCommonWords , "cell 0 0, sg leftButton");
 		
 		btnDisplayAll = new QButton("Display All", secondary, primary);
@@ -69,11 +69,7 @@ public class Lab2View extends JPanel {
 		panel.add(btnDisplayAll, "cell 2 0, sg rightButton, wrap");
 		
 		
-		// Row 2
-		btnRemoveCommonWords = new QButton("Remove Common Words", secondary, primary);
-		btnRemoveCommonWords.setEnabled(false);
-		panel.add(btnRemoveCommonWords, "cell 0 1, sg leftButton");
-		
+		// Row 2		
 		QLabel lblSearch = new QLabel("Search: ", primary);
 		panel.add(lblSearch, "split 3,pushx ,alignx center");
 		
@@ -89,9 +85,9 @@ public class Lab2View extends JPanel {
 		panel.add(btnGetSmallest, "cell 2 1, sg rightButton, wrap");
 		
 		// Row 3
-		btnLoadConcordance = new QButton("Load Concordance", secondary, primary);
-		btnLoadConcordance.setEnabled(false);
-		panel.add(btnLoadConcordance, "cell 0 2, sg leftButton");
+		btnBuildConcordance = new QButton("Load Text File", secondary, primary);
+		btnBuildConcordance.setEnabled(false);
+		panel.add(btnBuildConcordance, "cell 0 2, sg leftButton");
 		
 		btnGetBiggest = new QButton("Get Biggest", secondary, primary);
 		btnGetBiggest.setEnabled(false);
