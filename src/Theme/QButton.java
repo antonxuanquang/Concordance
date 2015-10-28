@@ -12,11 +12,10 @@ import javax.swing.border.EmptyBorder;
 
 public class QButton extends JButton implements MouseListener{
 	
-	Color hoverColor, mainColor;
+	Color hoverColor = ColorTheme.getPrimaryColor();
+	Color mainColor = ColorTheme.getSecondaryColor();
 	
-	public QButton (String name, Color hoverColor, Color mainColor) {
-		this.hoverColor = hoverColor;
-		this.mainColor = mainColor;
+	public QButton (String name) {
 		addMouseListener(this);
 		setBackground(mainColor);
 		setForeground(Color.WHITE);

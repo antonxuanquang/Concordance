@@ -27,11 +27,9 @@ public class Lab2View extends JPanel {
 	private MainController mainControl;
 	public Concordance model;
 	
-	Color primary = new ColorTheme().primary;
-	Color secondary = new ColorTheme().secondary;
 	private JPanel panel2;
 	private QTextField tf;
-	public QButton btnLoadCommonWords,btnDisplayAll, btnSearch, 
+	public QButton btnLoadCommonWords, btnDisplayAll, btnSearch, 
 		btnGetSmallest, btnBuildConcordance, btnGetBiggest;
 	
 	
@@ -52,7 +50,7 @@ public class Lab2View extends JPanel {
 		
 		// Row A
 		panel2 = new JPanel();
-		panel2.setBorder(new TitledBorder(null, "Panel of Results", TitledBorder.LEADING, TitledBorder.TOP, null, primary));
+		panel2.setBorder(new TitledBorder(null, "Panel of Results", TitledBorder.LEADING, TitledBorder.TOP, null, ColorTheme.getPrimaryColor()));
 		add(panel2, "span ,push ,grow");
 		
 		// Row B
@@ -61,35 +59,35 @@ public class Lab2View extends JPanel {
 		panel.setLayout(new MigLayout("", "[][][]", "[][][]"));
 		
 		// Row 1
-		btnLoadCommonWords = new QButton("Load Common Words File", secondary, primary);
+		btnLoadCommonWords = new QButton("Load Common Words File");
 		panel.add(btnLoadCommonWords , "cell 0 0, sg leftButton");
 		
-		btnDisplayAll = new QButton("Display All", secondary, primary);
+		btnDisplayAll = new QButton("Display All");
 		btnDisplayAll.setEnabled(false);
 		panel.add(btnDisplayAll, "cell 2 0, sg rightButton, wrap");
 		
 		
 		// Row 2		
-		QLabel lblSearch = new QLabel("Search: ", primary);
+		QLabel lblSearch = new QLabel("Search: ");
 		panel.add(lblSearch, "split 3,pushx ,alignx center");
 		
-		tf = new QTextField(secondary, primary);
+		tf = new QTextField();
 		panel.add(tf, "width 100:150:200");
 		
-		btnSearch = new QButton("Search", secondary, primary);
+		btnSearch = new QButton("Search");
 		btnSearch.setEnabled(false);
 		panel.add(btnSearch);
 		
-		btnGetSmallest = new QButton("Get Smallest", secondary, primary);
+		btnGetSmallest = new QButton("Get Smallest");
 		btnGetSmallest.setEnabled(false);
 		panel.add(btnGetSmallest, "cell 2 1, sg rightButton, wrap");
 		
 		// Row 3
-		btnBuildConcordance = new QButton("Load Text File", secondary, primary);
+		btnBuildConcordance = new QButton("Load Text File");
 		btnBuildConcordance.setEnabled(false);
 		panel.add(btnBuildConcordance, "cell 0 2, sg leftButton");
 		
-		btnGetBiggest = new QButton("Get Biggest", secondary, primary);
+		btnGetBiggest = new QButton("Get Biggest");
 		btnGetBiggest.setEnabled(false);
 		panel.add(btnGetBiggest, "cell 2 2, sg rightButton, wrap");
 	}

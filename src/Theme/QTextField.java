@@ -8,11 +8,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JTextField;;
 
 public class QTextField extends JTextField implements MouseListener{
-	Color hoverColor, mainColor;
+
+	Color hoverColor = ColorTheme.getPrimaryColor();
+	Color mainColor = ColorTheme.getSecondaryColor();
 	
-	public QTextField (Color hoverColor, Color mainColor) {
-		this.hoverColor = hoverColor;
-		this.mainColor = mainColor;
+	public QTextField () {
 		addMouseListener(this);
 		setBorder(BorderFactory.createLineBorder(mainColor, 1));
 	}

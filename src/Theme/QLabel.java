@@ -5,7 +5,9 @@ import javax.swing.JLabel;
 
 public class QLabel extends JLabel{
 	
-	public QLabel (String text, Color mainColor) {
+	Color mainColor = ColorTheme.getSecondaryColor();
+	
+	public QLabel (String text) {
 		this.setText(text);
 		this.setForeground(mainColor);
 	}
