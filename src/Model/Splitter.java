@@ -42,11 +42,6 @@ public class Splitter {
 		for (String word: strs) {
 			words.add(word.toLowerCase());
 		}
-		
-//		StringTokenizer st = new StringTokenizer(sentence ,"[]{} \t\n,.;-?!()&/\\\"'*:1234567890");
-//		while (st.hasMoreTokens()) {
-//			words.add(st.nextToken().toLowerCase());
-//		}
 		return words;
 	}
 }

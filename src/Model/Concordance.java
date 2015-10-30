@@ -12,8 +12,6 @@ public class Concordance {
 	WordNode concordanceTree;
 	
 	public Concordance() {
-		concordanceTree = new WordNode();
-		concordanceTree.buildHead();
 	}
 	
 	public void buildCommonWordsHash() throws FileNotFoundException {
@@ -26,7 +24,7 @@ public class Concordance {
 	
 	public void buildConcordance() throws FileNotFoundException {
 		try {
-			concordanceTree = ConcordanceBuilder.buildConcordance(concordanceTree, commonWords);
+			concordanceTree = ConcordanceBuilder.buildConcordance(commonWords);
 		} catch (FileNotFoundException e) {
 			throw new FileNotFoundException(e.getMessage());
 		}

@@ -22,13 +22,17 @@ public class ConcordanceBuilder {
 	
 	public ConcordanceBuilder() {}
 	
-	public static WordNode buildConcordance (WordNode concordanceTree, HashMap<String, Integer> commonWords) throws FileNotFoundException{
+	public static WordNode buildConcordance (HashMap<String, Integer> commonWords) throws FileNotFoundException{
 //		String fileName = getFileName();
 		String fileName = "C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\"
 				+ "Fall 2015\\CoSc 20803\\Concordance\\GulliversTravels(large).txt";
 		
 //		FirstParagraph, AChristmasCarol, AChristmasCarol(large), AliceInWonderland(large)
 //		DrJekyllAndMrHyde(large), GulliversTravels(large)
+		
+		
+		WordNode concordanceTree = new WordNode();
+		concordanceTree.buildHead();
 		
 		if (fileName == null) {
 			throw new FileNotFoundException("Unsuccessfully load text file !!");
