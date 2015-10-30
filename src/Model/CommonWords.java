@@ -44,10 +44,6 @@ public class CommonWords{
 		return hash;
 	}
 	
-	public boolean isInCommonWordsHashTable(String key, HashMap<String, Integer> hash) {
-		return hash.containsKey(key);
-	}
-	
 	static String getFileName() {
 		JFileChooser fc = new JFileChooser("C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\Fall 2015\\CoSc 20803\\Concordance");
 		int returnVal = fc.showOpenDialog(null);

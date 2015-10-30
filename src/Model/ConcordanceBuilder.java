@@ -22,16 +22,22 @@ public class ConcordanceBuilder {
 	
 	public ConcordanceBuilder() {}
 	
-	public static WordNode buildConcordance () throws FileNotFoundException{
+	public static WordNode buildConcordance (WordNode concordanceTree, HashMap<String, Integer> commonWords) throws FileNotFoundException{
 //		String fileName = getFileName();
 		String fileName = "C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\"
 				+ "Fall 2015\\CoSc 20803\\Concordance\\AChristmasCarol(large).txt";
+		
+//		FirstParagraph, AChristmasCarol, AChristmasCarol(large)
 		
 		if (fileName == null) {
 			throw new FileNotFoundException("Unsuccessfully load text file !!");
 		}
 		
 		try {
+			
+			long start = System.nanoTime();
+			
+			
 			String content = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
 			ArrayList<String> paragraphs = Splitter.splitIntoParagraphs(content);
 			int paragraphCount = 0;
@@ -41,15 +47,29 @@ public class ConcordanceBuilder {
 				ArrayList<String> sentences = Splitter.splitIntoSentences(paragraph);
 				for (String sentence: sentences) {
 					sentenceCount++;
+//					System.out.println(sentenceCount + " " + sentence);
 					ArrayList<String> words = Splitter.splitIntoWords(sentence);
 					for (String word: words) {
-						System.out.println(sentenceCount + " " + word);
+						if (!commonWords.containsKey(word)) {
+							ArrayList<Object> context = new ArrayList<Object> ();
+							context.add(sentence);
+							context.add(paragraphCount);
+							context.add(sentenceCount);
+							concordanceTree.addNode(word, context);
+						}
 					}
 				}
 			}
 			
+			
+			
+			long stopTime = System.nanoTime();
+			long elapsed = stopTime - start;
+			System.out.println("elasped time: " + elapsed/1.0e9);
+			
+			
 		} catch (IOException e) {}
-		return null;
+		return concordanceTree;
 	}
 	
 	

@@ -39,7 +39,7 @@ public class Splitter {
 		sentence = sentence.replaceAll("[!?,.'`:;]", "");
 		String[] strs = sentence.split("\\s+");
 		for (String word: strs) {
-			words.add(word.toUpperCase());
+			words.add(word.toLowerCase());
 		}
 		return words;
 	}

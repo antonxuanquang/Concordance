@@ -1,5 +1,7 @@
 package Interface;
 
+import java.util.ArrayList;
+
 public class ContextNode {
 	
 	int paragraphNum, sentenceNum;
@@ -32,5 +34,35 @@ public class ContextNode {
 	public void setNext(ContextNode n) {
 		node = n;
 	}
-
+	
+	
+	// methods operate on individual node
+	
+	//methods operate on links
+	@Override
+	public String toString() {
+		String result = "";
+		ContextNode current = this;
+		while (current != null) {
+			result += current.getContext() + "\n";
+			current = current.getNext();
+		}
+		return result;
+	}
+	
+	private ContextNode getLastNode() {
+		ContextNode node = this;
+		while (node.getNext() != null) {
+			node = node.getNext();
+		}
+		return node;
+	}
+	
+	public void addContext(ArrayList<Object> context) {
+		ContextNode node = new ContextNode();
+		node.setContext((String) context.get(0));
+		node.setParagraphNum((int)context.get(1));
+		node.setSentenceNum((int)context.get(2));
+		getLastNode().setNext(node);
+	}
 }

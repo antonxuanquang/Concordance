@@ -9,10 +9,10 @@ public interface WordNodeInterface {
 	public int getCount();
 	public void setContextLink(ContextNode s);
 	public ContextNode getContextLink();
-	public void setRightLink(WordNode node);
-	public WordNode getRightLink();
+	public void setRight(WordNode node);
+	public WordNode getRight();
 	public void setRightThread(boolean b);
-	public boolean getRightThread();
+	public boolean getRightThreaded();
 	public void setLeftThread(boolean b);
-	public boolean getLeftThread();
+	public boolean getLeftThreaded();
 }
