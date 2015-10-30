@@ -25,16 +25,16 @@ public class ConcordanceBuilder {
 	public static WordNode buildConcordance (WordNode concordanceTree, HashMap<String, Integer> commonWords) throws FileNotFoundException{
 //		String fileName = getFileName();
 		String fileName = "C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\"
-				+ "Fall 2015\\CoSc 20803\\Concordance\\AChristmasCarol(large).txt";
+				+ "Fall 2015\\CoSc 20803\\Concordance\\GulliversTravels(large).txt";
 		
-//		FirstParagraph, AChristmasCarol, AChristmasCarol(large)
+//		FirstParagraph, AChristmasCarol, AChristmasCarol(large), AliceInWonderland(large)
+//		DrJekyllAndMrHyde(large), GulliversTravels(large)
 		
 		if (fileName == null) {
 			throw new FileNotFoundException("Unsuccessfully load text file !!");
 		}
 		
 		try {
-			
 			long start = System.nanoTime();
 			
 			
@@ -52,7 +52,7 @@ public class ConcordanceBuilder {
 					for (String word: words) {
 						if (!commonWords.containsKey(word)) {
 							ArrayList<Object> context = new ArrayList<Object> ();
-							context.add(sentence);
+							context.add(paragraph);
 							context.add(paragraphCount);
 							context.add(sentenceCount);
 							concordanceTree.addNode(word, context);
@@ -65,9 +65,7 @@ public class ConcordanceBuilder {
 			
 			long stopTime = System.nanoTime();
 			long elapsed = stopTime - start;
-			System.out.println("elasped time: " + elapsed/1.0e9);
-			
-			
+			System.out.println("Building time: " + elapsed/1.0e9);
 		} catch (IOException e) {}
 		return concordanceTree;
 	}

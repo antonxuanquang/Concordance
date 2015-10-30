@@ -122,6 +122,38 @@ public class WordNode implements WordNodeInterface {
 		return node;
 	}
 	
+	public String tInOrder() {
+		long start = System.nanoTime();
+		
+		String result = "";
+		WordNode temp = this;
+		do {
+			temp = findInOrderSuccessor(temp);
+			if (temp != this) {
+				result += temp.getWord() + " " + temp.getCount() + "\n";
+			}
+		} while (temp != this);
+		
+		
+		
+		long stopTime = System.nanoTime();
+		long elapsed = stopTime - start;
+		System.out.println("Traversal time: " + elapsed/1.0e9);
+		
+		
+		return result;
+	}
+	
+	private WordNode findInOrderSuccessor(WordNode temp) {
+		WordNode node = temp.getRight();
+		if (!temp.isRightThreaded()) {
+			while (!node.isLeftThreaded()) {
+				node = node.getLeft();
+			}
+		}
+		return node;
+	}
+
 	//methods operate on nodes
 	public void incrementCount() {
 		count++;

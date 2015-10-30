@@ -2,6 +2,7 @@ package Model;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,11 +37,16 @@ public class Splitter {
 	
 	static ArrayList<String> splitIntoWords (String sentence) {
 		ArrayList<String> words = new ArrayList<String>();
-		sentence = sentence.replaceAll("[!?,.'`:;]", "");
+		sentence = sentence.replaceAll("[!?,.'`:;_\"--(){}1234567890\\[\\]]", "");
 		String[] strs = sentence.split("\\s+");
 		for (String word: strs) {
 			words.add(word.toLowerCase());
 		}
+		
+//		StringTokenizer st = new StringTokenizer(sentence ,"[]{} \t\n,.;-?!()&/\\\"'*:1234567890");
+//		while (st.hasMoreTokens()) {
+//			words.add(st.nextToken().toLowerCase());
+//		}
 		return words;
 	}
 }
