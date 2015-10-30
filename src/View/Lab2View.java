@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -28,9 +30,12 @@ public class Lab2View extends JPanel {
 	public Concordance model;
 	
 	private JPanel panel2;
-	private QTextField tf;
+	private QTextField tfSearch;
 	public QButton btnLoadCommonWords, btnDisplayAll, btnSearch, 
-		btnGetSmallest, btnBuildConcordance, btnGetBiggest;
+		btnGetSmallest, btnBuildConcordance, btnGetBiggest, btnFirst, btnLast,
+		btnPrevious, btnNext;
+	public JList listOfWords;
+	public JComboBox cbFrequency;
 	
 	
 	
@@ -46,50 +51,69 @@ public class Lab2View extends JPanel {
 	
 	void buildMainView() {
 		setBorder(new EmptyBorder(5, 5, 5, 5));
-		setLayout(new MigLayout("", "[]", "[]"));
+		setLayout(new MigLayout("", "", ""));
 		
-		// Row A
+		
+		
+		// Column A
+		JPanel panel = new JPanel();
+		add(panel, "width ::500, growy");
+		panel.setLayout(new MigLayout("", "", ""));
+		
+		
+		btnLoadCommonWords = new QButton("Load Common Words File");
+		panel.add(btnLoadCommonWords , "alignx center, aligny center, sg middleButton, wrap");
+		
+		btnBuildConcordance = new QButton("Load Text File");
+		btnBuildConcordance.setEnabled(false);
+		panel.add(btnBuildConcordance, "alignx center, aligny center, sg middleButton, wrap");
+		
+		btnDisplayAll = new QButton("Display All");
+		btnDisplayAll.setEnabled(false);
+		panel.add(btnDisplayAll, "alignx center, aligny center, sg middleButton, wrap");
+		
+		listOfWords = new JList();
+		panel.add(listOfWords, "height 300::, growy, pushy, wrap");
+		
+		btnFirst = new QButton("First");
+		panel.add(btnFirst, "split 4");
+		
+		btnPrevious = new QButton("<");
+		panel.add(btnPrevious, "");
+		
+		btnNext = new QButton(">");
+		panel.add(btnNext, "");
+		
+		btnLast = new QButton("Last");
+		panel.add(btnLast, "wrap");
+		
+		
+		QLabel lblSearch = new QLabel("Search: ");
+		panel.add(lblSearch, "split 2, sg leftLabel");
+		
+		tfSearch = new QTextField();
+		panel.add(tfSearch, "growx, wrap");
+		
+		btnGetSmallest = new QButton("Get Smallest");
+		btnGetSmallest.setEnabled(false);
+		panel.add(btnGetSmallest, "split 2, alignx center");
+		
+		btnGetBiggest = new QButton("Get Biggest");
+		btnGetBiggest.setEnabled(false);
+		panel.add(btnGetBiggest, "wrap");
+		
+		QLabel lblFrequency = new QLabel("Frequency: ");
+		panel.add(lblFrequency, "split 2, sg leftLabel");
+		
+		cbFrequency = new JComboBox();
+		panel.add(cbFrequency, "growx, wrap");
+		
+		
+		// Column B
 		panel2 = new JPanel();
 		panel2.setBorder(new TitledBorder(null, "Panel of Results", TitledBorder.LEADING, TitledBorder.TOP, null, ColorTheme.getPrimaryColor()));
 		add(panel2, "span ,push ,grow");
 		
-		// Row B
-		JPanel panel = new JPanel();
-		add(panel, "span, pushx, growx");
-		panel.setLayout(new MigLayout("", "[][][]", "[][][]"));
-		
-		// Row 1
-		btnLoadCommonWords = new QButton("Load Common Words File");
-		panel.add(btnLoadCommonWords , "cell 0 0, sg leftButton");
-		
-		btnDisplayAll = new QButton("Display All");
-		btnDisplayAll.setEnabled(false);
-		panel.add(btnDisplayAll, "cell 2 0, sg rightButton, wrap");
-		
-		
-		// Row 2		
-		QLabel lblSearch = new QLabel("Search: ");
-		panel.add(lblSearch, "split 3,pushx ,alignx center");
-		
-		tf = new QTextField();
-		panel.add(tf, "width 100:150:200");
-		
-		btnSearch = new QButton("Search");
-		btnSearch.setEnabled(false);
-		panel.add(btnSearch);
-		
-		btnGetSmallest = new QButton("Get Smallest");
-		btnGetSmallest.setEnabled(false);
-		panel.add(btnGetSmallest, "cell 2 1, sg rightButton, wrap");
-		
-		// Row 3
-		btnBuildConcordance = new QButton("Load Text File");
-		btnBuildConcordance.setEnabled(false);
-		panel.add(btnBuildConcordance, "cell 0 2, sg leftButton");
-		
-		btnGetBiggest = new QButton("Get Biggest");
-		btnGetBiggest.setEnabled(false);
-		panel.add(btnGetBiggest, "cell 2 2, sg rightButton, wrap");
 	}
 
 }

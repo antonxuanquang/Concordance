@@ -28,6 +28,5 @@ public class Concordance {
 		} catch (FileNotFoundException e) {
 			throw new FileNotFoundException(e.getMessage());
 		}
-		System.out.println(concordanceTree.tInOrder());
 	}
 }

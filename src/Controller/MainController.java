@@ -29,7 +29,6 @@ public class MainController implements ActionListener{
 		view.btnGetSmallest.addActionListener(this);
 		view.btnLoadCommonWords.addActionListener(this);
 		view.btnBuildConcordance.addActionListener(this);
-		view.btnSearch.addActionListener(this);
 	}
 	
 	//invoke Action Listener 
@@ -59,7 +58,6 @@ public class MainController implements ActionListener{
 			view.btnDisplayAll.setEnabled(true);
 			view.btnGetBiggest.setEnabled(true);
 			view.btnGetSmallest.setEnabled(true);
-			view.btnSearch.setEnabled(true);
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE);
 		}
