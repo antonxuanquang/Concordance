@@ -126,13 +126,14 @@ public class WordNode implements WordNodeInterface {
 		long start = System.nanoTime();
 		
 		String result = "";
-		WordNode temp = this;
+		WordNode head = this;
+		WordNode temp = head;
 		do {
 			temp = findInOrderSuccessor(temp);
-			if (temp != this) {
+			if (temp != head) {
 				result += temp.getWord() + " " + temp.getCount() + "\n";
 			}
-		} while (temp != this);
+		} while (temp != head);
 		
 		
 		
@@ -144,7 +145,7 @@ public class WordNode implements WordNodeInterface {
 		return result;
 	}
 	
-	private WordNode findInOrderSuccessor(WordNode temp) {
+	public WordNode findInOrderSuccessor(WordNode temp) {
 		WordNode node = temp.getRight();
 		if (!temp.isRightThreaded()) {
 			while (!node.isLeftThreaded()) {

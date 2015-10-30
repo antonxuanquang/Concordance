@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import Theme.ColorTheme;
@@ -34,8 +36,8 @@ public class Lab2View extends JPanel {
 	public QButton btnLoadCommonWords, btnDisplayAll, btnSearch, 
 		btnGetSmallest, btnBuildConcordance, btnGetBiggest, btnFirst, btnLast,
 		btnPrevious, btnNext;
-	public JList listOfWords;
 	public JComboBox cbFrequency;
+	public DefaultListModel listOfWords;
 	
 	
 	
@@ -72,8 +74,12 @@ public class Lab2View extends JPanel {
 		btnDisplayAll.setEnabled(false);
 		panel.add(btnDisplayAll, "alignx center, aligny center, sg middleButton, wrap");
 		
-		listOfWords = new JList();
-		panel.add(listOfWords, "height 300::, growy, pushy, wrap");
+		
+		listOfWords = new DefaultListModel();
+	    JList list = new JList(listOfWords);
+	    JScrollPane pane = new JScrollPane(list);
+	    pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		panel.add(pane, "height 200:300:, growy, pushy, growx, wrap");
 		
 		btnFirst = new QButton("First");
 		panel.add(btnFirst, "split 4");

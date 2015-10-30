@@ -29,4 +29,8 @@ public class Concordance {
 			throw new FileNotFoundException(e.getMessage());
 		}
 	}
+	
+	public WordNode getTree() {
+		return concordanceTree;
+	}
 }
