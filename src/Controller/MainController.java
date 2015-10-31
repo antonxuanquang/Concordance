@@ -2,6 +2,8 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +16,7 @@ import Model.Concordance;
 import View.ContextViewBuilder;
 import View.Lab2View;
 
-public class MainController implements ActionListener{
+public class MainController implements ActionListener, MouseListener{
 	
 	private Lab2View view;
 	private Concordance model;
@@ -112,8 +114,27 @@ public class MainController implements ActionListener{
 	}
 	
 	
+	private void displaySelectedWord() {
+		view.resultPanel.removeAll();
+		
+		String word = (String) view.list.getSelectedValue();
+		WordNode tree = model.getTree();
+		WordNode temp = tree.getLeft();
+		while (temp != tree) {
+			if ((word.compareTo(temp.getWord()) < 0)) {
+				temp = temp.getLeft();
+			} else if ((word.compareTo(temp.getWord()) > 0)) {
+				temp = temp.getRight();
+			} else {
+				ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
+				view.validate();
+				view.repaint();
+				return;
+			}
+		}
+	}
 
-	public void displayFirstWord() {
+	private void displayFirstWord() {
 		view.resultPanel.removeAll();
 		
 		String word = (String) view.listOfWords.getElementAt(0);
@@ -124,26 +145,75 @@ public class MainController implements ActionListener{
 			if (temp != tree) {
 				if (temp.getWord().equals(word)) {
 					ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
+					view.list.setSelectedIndex(0);
+					view.validate();
+					view.repaint();
 					return;
 				}
 			}
 		} while (temp != tree);
-		view.validate();
-		view.repaint();	
-		
 	}
 
-
+	private void displayPreviousWord() {
+		view.resultPanel.removeAll();
+		
+		int index = view.list.getSelectedIndex();
+		if (index > 0) {
+			view.list.setSelectedIndex(index - 1);
+		} else {
+			view.list.setSelectedIndex(0);
+		}
+		
+		String word = (String) view.list.getSelectedValue();
+		
+		WordNode tree = model.getTree();
+		WordNode temp = tree.getLeft();
+		while (temp != tree) {
+			if ((word.compareTo(temp.getWord()) < 0)) {
+				temp = temp.getLeft();
+			} else if ((word.compareTo(temp.getWord()) > 0)) {
+				temp = temp.getRight();
+			} else {
+				ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
+				view.validate();
+				view.repaint();
+				return;
+			}
+		}
+	}
+	
 	private void displayNextWord() {
-		// TODO Auto-generated method stub
+		view.resultPanel.removeAll();
 		
+		int index = view.list.getSelectedIndex();
+		if (index > 0) {
+			view.list.setSelectedIndex(index + 1);
+		} else {
+			view.list.setSelectedIndex(0);
+		}
+		
+		String word = (String) view.list.getSelectedValue();
+		
+		WordNode tree = model.getTree();
+		WordNode temp = tree.getLeft();
+		while (temp != tree) {
+			if ((word.compareTo(temp.getWord()) < 0)) {
+				temp = temp.getLeft();
+			} else if ((word.compareTo(temp.getWord()) > 0)) {
+				temp = temp.getRight();
+			} else {
+				ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
+				view.validate();
+				view.repaint();
+				return;
+			}
+		}
 	}
-
 
 	private void displayLastWord() {
 		view.resultPanel.removeAll();
-		int lastIndex = view.listOfWords.getSize();
-		String word = (String) view.listOfWords.getElementAt(lastIndex - 1);
+		int lastIndex = view.listOfWords.getSize() - 1;
+		String word = (String) view.listOfWords.getElementAt(lastIndex);
 		WordNode tree = model.getTree();
 		WordNode temp = tree;
 		do {
@@ -151,23 +221,37 @@ public class MainController implements ActionListener{
 			if (temp != tree) {
 				if (temp.getWord().equals(word)) {
 					ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
+					view.list.setSelectedIndex(lastIndex);
+					view.validate();
+					view.repaint();	
 					return;
 				}
 			}
 		} while (temp != tree);
-		view.validate();
-		view.repaint();	
+	}
+	
+	
+	
+	
+
+	private void displayWordByFrequency() {
+		
+	}
+	
+	private void displayBiggest() {
 		
 	}
 
 
-	private void displayWordByFrequency() {
-		// TODO Auto-generated method stub
+	private void displaySmallest() {
 		
 	}
 	
 
 	//set up Listeners
+	
+
+	
 	void setUpListeners () {
 		view.btnDisplayAll.addActionListener(this);
 		view.btnGetBiggest.addActionListener(this);
@@ -179,6 +263,9 @@ public class MainController implements ActionListener{
 		view.btnNext.addActionListener(this);
 		view.btnLast.addActionListener(this);
 		view.cbFrequency.addActionListener(this);
+		
+
+		view.list.addMouseListener(this);
 	}
 	
 	//invoke Action Listener 
@@ -187,20 +274,46 @@ public class MainController implements ActionListener{
 		if (events.equals(view.btnLoadCommonWords)) loadCommonWords();
 		else if (events.equals(view.btnBuildConcordance)) buildConcordance();
 		else if (events.equals(view.btnDisplayAll)) displayAllConcordance();
+		else if (events.equals(view.btnGetSmallest)) displaySmallest();
+		else if (events.equals(view.btnGetBiggest)) displayBiggest();
+		else if (events.equals(view.btnDisplayAll)) displayAllConcordance();
 		else if (events.equals(view.btnFirst)) displayFirstWord();
+		else if (events.equals(view.btnPrevious)) displayPreviousWord();
 		else if (events.equals(view.btnNext)) displayNextWord();
 		else if (events.equals(view.btnLast)) displayLastWord();
 		else if (events.equals(view.cbFrequency)) displayWordByFrequency();
 	}
 
 
+	public void mouseClicked(MouseEvent e) {
+		Object events = e.getSource();
+		if (events.equals(view.list)) displaySelectedWord();
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	//getters and setters
 	public Lab2View getView() {
 		return view;
-	}
-	
-	public Concordance getModel() {
-		return model;
 	}
 	
 	

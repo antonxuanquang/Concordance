@@ -38,6 +38,7 @@ public class Lab2View extends JPanel {
 		btnPrevious, btnNext;
 	public JComboBox cbFrequency;
 	public DefaultListModel listOfWords;
+	public JList list;
 	
 	
 	
@@ -76,7 +77,7 @@ public class Lab2View extends JPanel {
 		
 		
 		listOfWords = new DefaultListModel();
-	    JList list = new JList(listOfWords);
+	    list = new JList(listOfWords);
 	    JScrollPane pane = new JScrollPane(list);
 	    pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		panel.add(pane, "height 200:300:, growy, pushy, growx, wrap");
