@@ -117,11 +117,12 @@ public class Lab2View extends JPanel {
 		
 		// Column B
 		resultPanel = new JPanel();
-		JScrollPane scrollPane = new JScrollPane();
+		resultPanel.setLayout(new MigLayout("", "", ""));
+		
+		JScrollPane scrollPane = new JScrollPane(resultPanel);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBorder(new TitledBorder(null, "Panel of Results", TitledBorder.LEADING, TitledBorder.TOP, null, ColorTheme.getPrimaryColor()));
-		scrollPane.add(resultPanel);
-		add(scrollPane, "span ,push ,grow");
+		add(scrollPane, "push ,grow");
 		
 	}
 

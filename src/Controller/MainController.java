@@ -53,8 +53,21 @@ public class MainController implements ActionListener{
 		}
 	}
 
-	public void displayAllConcordance() {
-		view.resultPanel.add(ContextViewBuilder.buildContextView(model.getTree()));
+	public void displayAllConcordance() {		
+		view.resultPanel.removeAll();
+		WordNode tree = model.getTree();
+		WordNode temp = tree;
+		do {
+			temp = tree.findInOrderSuccessor(temp);
+			if (temp != tree) {
+				long start = System.nanoTime();
+				JPanel panel = ContextViewBuilder.buildContextPanel(temp);
+				view.resultPanel.add(panel, "wrap, pushx, growx");
+				long stopTime = System.nanoTime();
+				long elapsed = stopTime - start;
+				System.out.println("Building time: " + elapsed/1.0e9);
+			}
+		} while (temp != tree);
 		view.validate();
 		view.repaint();		
 	}

@@ -48,7 +48,6 @@ public class ConcordanceBuilder {
 				ArrayList<String> sentences = Splitter.splitIntoSentences(paragraph);
 				for (String sentence: sentences) {
 					sentenceCount++;
-//					System.out.println(sentenceCount + " " + sentence);
 					ArrayList<String> words = Splitter.splitIntoWords(sentence);
 					for (String word: words) {
 						if (!commonWords.containsKey(word)) {
