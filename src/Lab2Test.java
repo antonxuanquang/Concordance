@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import javax.swing.JFrame;
 
 import Controller.MainController;
+import Interface.WordNode;
 import Model.Concordance;
 
 public class Lab2Test extends JFrame{
@@ -17,5 +18,18 @@ public class Lab2Test extends JFrame{
 		MainController control = new MainController(lab2.getView());
 		control.loadCommonWords();
 		control.buildConcordance();
+		WordNode tree = control.getModel().getTree();
+		System.out.println(tree.tInOrder());
+		
+//		control.displayAllConcordance();
+		
+		
+		
+//		long start = System.nanoTime();
+//		long stopTime = System.nanoTime();
+//		long elapsed = stopTime - start;
+//		System.out.println("Building time: " + elapsed/1.0e9);
 	}
+	
+	
 }

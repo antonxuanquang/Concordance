@@ -31,7 +31,7 @@ public class Lab2View extends JPanel {
 	private MainController mainControl;
 	public Concordance model;
 	
-	private JPanel panel2;
+	public JPanel resultPanel;
 	private QTextField tfSearch;
 	public QButton btnLoadCommonWords, btnDisplayAll, btnSearch, 
 		btnGetSmallest, btnBuildConcordance, btnGetBiggest, btnFirst, btnLast,
@@ -116,9 +116,12 @@ public class Lab2View extends JPanel {
 		
 		
 		// Column B
-		panel2 = new JPanel();
-		panel2.setBorder(new TitledBorder(null, "Panel of Results", TitledBorder.LEADING, TitledBorder.TOP, null, ColorTheme.getPrimaryColor()));
-		add(panel2, "span ,push ,grow");
+		resultPanel = new JPanel();
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBorder(new TitledBorder(null, "Panel of Results", TitledBorder.LEADING, TitledBorder.TOP, null, ColorTheme.getPrimaryColor()));
+		scrollPane.add(resultPanel);
+		add(scrollPane, "span ,push ,grow");
 		
 	}
 

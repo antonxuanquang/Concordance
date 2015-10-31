@@ -117,14 +117,14 @@ public class WordNode implements WordNodeInterface {
 		node.setWord(word);
 		node.setCount(1);
 		ContextNode contextNode = new ContextNode();
-		contextNode.addContext(context);
+		contextNode.setContext((String) context.get(0));
+		contextNode.setParagraphNum((int)context.get(1));
+		contextNode.setSentenceNum((int)context.get(2));
 		node.setContextLink(contextNode);
 		return node;
 	}
 	
 	public String tInOrder() {
-		long start = System.nanoTime();
-		
 		String result = "";
 		WordNode head = this;
 		WordNode temp = head;
@@ -132,16 +132,9 @@ public class WordNode implements WordNodeInterface {
 			temp = findInOrderSuccessor(temp);
 			if (temp != head) {
 				result += temp.getWord() + " " + temp.getCount() + "\n";
+				result += temp.toString() + "\n";
 			}
-		} while (temp != head);
-		
-		
-		
-		long stopTime = System.nanoTime();
-		long elapsed = stopTime - start;
-		System.out.println("Traversal time: " + elapsed/1.0e9);
-		
-		
+		} while (temp != head);		
 		return result;
 	}
 	

@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import Interface.WordNode;
 import Model.Concordance;
+import View.ContextViewBuilder;
 import View.Lab2View;
 
 public class MainController implements ActionListener{
@@ -25,22 +27,6 @@ public class MainController implements ActionListener{
 	}
 	
 	
-	//set up Listeners
-	void setUpListeners () {
-		view.btnDisplayAll.addActionListener(this);
-		view.btnGetBiggest.addActionListener(this);
-		view.btnGetSmallest.addActionListener(this);
-		view.btnLoadCommonWords.addActionListener(this);
-		view.btnBuildConcordance.addActionListener(this);
-	}
-	
-	//invoke Action Listener 
-	public void actionPerformed (ActionEvent e) {
-		Object events = e.getSource();
-		if (events.equals(view.btnLoadCommonWords)) loadCommonWords();
-		else if (events.equals(view.btnBuildConcordance)) buildConcordance();
-	}
-
 	public void loadCommonWords() {
 		try {
 			// model
@@ -67,10 +53,13 @@ public class MainController implements ActionListener{
 		}
 	}
 
+	public void displayAllConcordance() {
+		view.resultPanel.add(ContextViewBuilder.buildContextView(model.getTree()));
+		view.validate();
+		view.repaint();		
+	}
 
-	private void updateListOfWordsAndCBOfFrequency(WordNode tree) {
-		long start = System.nanoTime();
-		
+	private void updateListOfWordsAndCBOfFrequency(WordNode tree) {		
 		WordNode temp = tree;
 		ArrayList<Integer> frequencyArray = new ArrayList<Integer>();
 		do {
@@ -80,12 +69,7 @@ public class MainController implements ActionListener{
 				frequencyArray = updateArrayOfFrequency(temp, frequencyArray);
 			}
 		} while (temp != tree);
-		updateCBOfFrequency(frequencyArray);
-		
-		long stopTime = System.nanoTime();
-		long elapsed = stopTime - start;
-		System.out.println("Traversal time: " + elapsed/1.0e9);
-		
+		updateCBOfFrequency(frequencyArray);		
 	}
 
 	private void updateListOfWords(WordNode temp) {
@@ -110,6 +94,31 @@ public class MainController implements ActionListener{
 		}
 	}
 
+	//set up Listeners
+	void setUpListeners () {
+		view.btnDisplayAll.addActionListener(this);
+		view.btnGetBiggest.addActionListener(this);
+		view.btnGetSmallest.addActionListener(this);
+		view.btnLoadCommonWords.addActionListener(this);
+		view.btnBuildConcordance.addActionListener(this);
+	}
+	
+	//invoke Action Listener 
+	public void actionPerformed (ActionEvent e) {
+		Object events = e.getSource();
+		if (events.equals(view.btnLoadCommonWords)) loadCommonWords();
+		else if (events.equals(view.btnBuildConcordance)) buildConcordance();
+		else if (events.equals(view.btnDisplayAll)) displayAllConcordance();
+	}
 
+	//getters and setters
+	public Lab2View getView() {
+		return view;
+	}
+	
+	public Concordance getModel() {
+		return model;
+	}
+	
 	
 }
