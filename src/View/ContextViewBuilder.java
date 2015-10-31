@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -15,59 +16,35 @@ public class ContextViewBuilder {
 	
 	public ContextViewBuilder() {}
 	
-	public static JPanel buildContextPanel(WordNode node) {
-		JPanel resultPanel = new JPanel();
-		resultPanel.setLayout(new MigLayout("insets 0 0 5 0"));
-		JPanel leftPanel = buildLeftSide(node);
-		JPanel rightPanel = buildRightSide(node);
+	public static void buildContextPanel(WordNode node, JPanel resultPanel) {
+		//column 1
+		JTextArea leftTA = new JTextArea();
+		leftTA.append("-" + node.getWord() + "\n");
+		leftTA.append("-Number of occurrence: " + node.getCount());
+		setUpTextArea(leftTA, ColorTheme.getSecondaryColor());
+		resultPanel.add(leftTA, "sg left, aligny top");
 		
-		resultPanel.add(leftPanel, "sg left, aligny top");
-		resultPanel.add(rightPanel, "growx, pushx");
 		
-		return resultPanel;
-	}
-
-	private static JPanel buildLeftSide(WordNode temp) {
-		JPanel resultPanel = new JPanel();
-		resultPanel.setLayout(new MigLayout("", "[]", "[]"));
-		
-		QLabel word = new QLabel(temp.getWord());
-		QLabel count = new QLabel ("Number of occurrence: " + temp.getCount());
-		
-		resultPanel.add(word, "wrap");
-		resultPanel.add(count, "wrap");
-		
-		return resultPanel;
-		
-	}
-
-	public static JPanel buildRightSide(WordNode node) {
-		JPanel resultPanel = new JPanel();
-		resultPanel.setLayout(new MigLayout("", "[]", "[]"));
-		String context = "";
+		//column 2
+		JTextArea rightTA = new JTextArea();
 		
 		ContextNode temp = node.getContextLink();
 		while (temp != null) {			
-			context += "-Context: " + temp.getContext() + "\n";
-			context += "-Paragraph Number: " + temp.getParagraphNum() + "\n";
-			context += "-Sentence Number: " + temp.getSentenceNum() + "\n";
-			context += "\n";
+			rightTA.append("-Context: " + temp.getContext() + "\n");
+			rightTA.append("-Paragraph Number: " + temp.getParagraphNum() + "\n");
+			rightTA.append("-Sentence Number: " + temp.getSentenceNum() + "\n");
+			rightTA.append("\n");
 			temp = temp.getNext();
 		}
-		JTextArea ta = new JTextArea(context);
+		setUpTextArea(rightTA, ColorTheme.getPrimaryColor());
+		resultPanel.add(rightTA, "growx, pushx, wrap");
+	}
+
+	private static void setUpTextArea(JTextArea ta, Color color) {
 		ta.setEditable(false);
 		ta.setOpaque(false);
 		ta.setLineWrap(true);
-		ta.setForeground(ColorTheme.getPrimaryColor());
-		resultPanel.add(ta, "growx, pushx");
-		return resultPanel; 
+		ta.setWrapStyleWord(true);
+		ta.setForeground(color);
 	}
-	
-	
-}
-
-class ContextBuilder {
-	public ContextBuilder() {}
-	
-	
 }
