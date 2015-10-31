@@ -32,7 +32,7 @@ public class Lab2View extends JPanel {
 	public Concordance model;
 	
 	public JPanel resultPanel;
-	private QTextField tfSearch;
+	public QTextField tfSearch;
 	public QButton btnLoadCommonWords, btnDisplayAll, btnSearch, 
 		btnGetSmallest, btnBuildConcordance, btnGetBiggest, btnFirst, btnLast,
 		btnPrevious, btnNext;
@@ -82,15 +82,19 @@ public class Lab2View extends JPanel {
 		panel.add(pane, "height 200:300:, growy, pushy, growx, wrap");
 		
 		btnFirst = new QButton("First");
+		btnFirst.setEnabled(false);
 		panel.add(btnFirst, "split 4");
 		
 		btnPrevious = new QButton("<");
+		btnPrevious.setEnabled(false);
 		panel.add(btnPrevious, "");
 		
 		btnNext = new QButton(">");
+		btnNext.setEnabled(false);
 		panel.add(btnNext, "");
 		
 		btnLast = new QButton("Last");
+		btnLast.setEnabled(false);
 		panel.add(btnLast, "wrap");
 		
 		
@@ -98,6 +102,7 @@ public class Lab2View extends JPanel {
 		panel.add(lblSearch, "split 2, sg leftLabel");
 		
 		tfSearch = new QTextField();
+		tfSearch.setEnabled(false);
 		panel.add(tfSearch, "growx, wrap");
 		
 		btnGetSmallest = new QButton("Get Smallest");
@@ -112,6 +117,7 @@ public class Lab2View extends JPanel {
 		panel.add(lblFrequency, "split 2, sg leftLabel");
 		
 		cbFrequency = new JComboBox();
+		cbFrequency.setEnabled(false);
 		panel.add(cbFrequency, "growx, wrap");
 		
 		

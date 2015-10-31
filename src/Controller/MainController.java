@@ -48,11 +48,20 @@ public class MainController implements ActionListener{
 			view.btnDisplayAll.setEnabled(true);
 			view.btnGetBiggest.setEnabled(true);
 			view.btnGetSmallest.setEnabled(true);
+			view.btnFirst.setEnabled(true);
+			view.btnPrevious.setEnabled(true);
+			view.btnNext.setEnabled(true);
+			view.btnLast.setEnabled(true);
+			view.cbFrequency.setEnabled(true);
+			view.tfSearch.setEnabled(true);
+			
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
+	
+	
 	public void displayAllConcordance() {		
 		view.resultPanel.removeAll();
 		WordNode tree = model.getTree();
@@ -60,19 +69,15 @@ public class MainController implements ActionListener{
 		do {
 			temp = tree.findInOrderSuccessor(temp);
 			if (temp != tree) {
-				long start = System.nanoTime();
-				JPanel panel = ContextViewBuilder.buildContextPanel(temp);
-				view.resultPanel.add(panel, "wrap, pushx, growx");
-				long stopTime = System.nanoTime();
-				long elapsed = stopTime - start;
-				System.out.println("Building time: " + elapsed/1.0e9);
+				ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
 			}
 		} while (temp != tree);
 		view.validate();
 		view.repaint();		
 	}
 
-	private void updateListOfWordsAndCBOfFrequency(WordNode tree) {		
+	private void updateListOfWordsAndCBOfFrequency(WordNode tree) {
+		view.listOfWords.removeAllElements();
 		WordNode temp = tree;
 		ArrayList<Integer> frequencyArray = new ArrayList<Integer>();
 		do {
@@ -88,7 +93,6 @@ public class MainController implements ActionListener{
 	private void updateListOfWords(WordNode temp) {
 		view.listOfWords.addElement(temp.getWord());
 	}
-
 
 	private ArrayList<Integer> updateArrayOfFrequency(WordNode temp, ArrayList<Integer> array) {
 		int count = temp.getCount();
@@ -106,6 +110,62 @@ public class MainController implements ActionListener{
 			view.cbFrequency.addItem(item);
 		}
 	}
+	
+	
+
+	public void displayFirstWord() {
+		view.resultPanel.removeAll();
+		
+		String word = (String) view.listOfWords.getElementAt(0);
+		WordNode tree = model.getTree();
+		WordNode temp = tree;
+		do {
+			temp = tree.findInOrderSuccessor(temp);
+			if (temp != tree) {
+				if (temp.getWord().equals(word)) {
+					ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
+					return;
+				}
+			}
+		} while (temp != tree);
+		view.validate();
+		view.repaint();	
+		
+	}
+
+
+	private void displayNextWord() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	private void displayLastWord() {
+		view.resultPanel.removeAll();
+		int lastIndex = view.listOfWords.getSize();
+		String word = (String) view.listOfWords.getElementAt(lastIndex - 1);
+		WordNode tree = model.getTree();
+		WordNode temp = tree;
+		do {
+			temp = tree.findInOrderSuccessor(temp);
+			if (temp != tree) {
+				if (temp.getWord().equals(word)) {
+					ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
+					return;
+				}
+			}
+		} while (temp != tree);
+		view.validate();
+		view.repaint();	
+		
+	}
+
+
+	private void displayWordByFrequency() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 
 	//set up Listeners
 	void setUpListeners () {
@@ -114,6 +174,11 @@ public class MainController implements ActionListener{
 		view.btnGetSmallest.addActionListener(this);
 		view.btnLoadCommonWords.addActionListener(this);
 		view.btnBuildConcordance.addActionListener(this);
+		view.btnFirst.addActionListener(this);
+		view.btnPrevious.addActionListener(this);
+		view.btnNext.addActionListener(this);
+		view.btnLast.addActionListener(this);
+		view.cbFrequency.addActionListener(this);
 	}
 	
 	//invoke Action Listener 
@@ -122,7 +187,12 @@ public class MainController implements ActionListener{
 		if (events.equals(view.btnLoadCommonWords)) loadCommonWords();
 		else if (events.equals(view.btnBuildConcordance)) buildConcordance();
 		else if (events.equals(view.btnDisplayAll)) displayAllConcordance();
+		else if (events.equals(view.btnFirst)) displayFirstWord();
+		else if (events.equals(view.btnNext)) displayNextWord();
+		else if (events.equals(view.btnLast)) displayLastWord();
+		else if (events.equals(view.cbFrequency)) displayWordByFrequency();
 	}
+
 
 	//getters and setters
 	public Lab2View getView() {

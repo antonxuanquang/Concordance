@@ -18,10 +18,14 @@ public class Lab2Test extends JFrame{
 		MainController control = new MainController(lab2.getView());
 		control.loadCommonWords();
 		control.buildConcordance();
-		WordNode tree = control.getModel().getTree();
+//		WordNode tree = control.getModel().getTree();
 //		System.out.println(tree.tInOrder());
-		control.displayAllConcordance();		
-		
+				
+//		long start = System.nanoTime();
+//		control.displayAllConcordance();
+//		long stopTime = System.nanoTime();
+//		long elapsed = stopTime - start;
+//		System.out.println("Building time: " + elapsed/1.0e9);
 		
 //		long start = System.nanoTime();
 //		long stopTime = System.nanoTime();
