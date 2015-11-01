@@ -31,6 +31,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class Lab2View extends JPanel {
 
@@ -86,7 +88,7 @@ public class Lab2View extends JPanel {
 	    list = new JList(listOfWords);
 	    JScrollPane pane = new JScrollPane(list);
 	    pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		panel.add(pane, "height 200:300:, growy, pushy, growx, wrap");
+		panel.add(pane, "height 200:300:, width 220!, growy, pushy, growx, wrap");
 		
 		btnFirst = new QButton("First");
 		btnFirst.setEnabled(false);

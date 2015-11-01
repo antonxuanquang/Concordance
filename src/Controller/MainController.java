@@ -1,6 +1,5 @@
 package Controller;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -12,9 +11,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 
 import Interface.WordNode;
 import Model.Concordance;
+import Theme.PrintASCII;
 import View.ContextViewBuilder;
 import View.Lab2View;
 
@@ -102,7 +105,7 @@ public class MainController implements ActionListener{
 	
 	
 	
-	public void displayAllConcordance() {		
+	public void displayAllConcordance() {
 		view.resultPanel.removeAll();
 		WordNode tree = model.getTree();
 		WordNode temp = tree;
@@ -144,8 +147,8 @@ public class MainController implements ActionListener{
 	
 	private void displaySelectedWord() {
 		view.resultPanel.removeAll();
-		
 		String word = (String) view.list.getSelectedValue();
+		
 		WordNode tree = model.getTree();
 		WordNode temp = tree.getLeft();
 		while (temp != tree) {
@@ -166,6 +169,7 @@ public class MainController implements ActionListener{
 		view.resultPanel.removeAll();
 		
 		String word = (String) view.listOfWords.getElementAt(0);
+		
 		WordNode tree = model.getTree();
 		WordNode temp = tree;
 		do {
@@ -174,6 +178,7 @@ public class MainController implements ActionListener{
 				if (temp.getWord().equals(word)) {
 					ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
 					view.list.setSelectedIndex(0);
+					view.list.ensureIndexIsVisible(view.list.getSelectedIndex());
 					view.validate();
 					view.repaint();
 					return;
@@ -203,6 +208,7 @@ public class MainController implements ActionListener{
 				temp = temp.getRight();
 			} else {
 				ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
+				view.list.ensureIndexIsVisible(view.list.getSelectedIndex());
 				view.validate();
 				view.repaint();
 				return;
@@ -231,6 +237,7 @@ public class MainController implements ActionListener{
 				temp = temp.getRight();
 			} else {
 				ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
+				view.list.ensureIndexIsVisible(view.list.getSelectedIndex());
 				view.validate();
 				view.repaint();
 				return;
@@ -250,6 +257,7 @@ public class MainController implements ActionListener{
 				if (temp.getWord().equals(word)) {
 					ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
 					view.list.setSelectedIndex(lastIndex);
+					view.list.ensureIndexIsVisible(view.list.getSelectedIndex());
 					view.validate();
 					view.repaint();	
 					return;
@@ -265,7 +273,6 @@ public class MainController implements ActionListener{
 		view.resultPanel.removeAll();
 		
 		Object items = view.cbFrequency.getSelectedItem();
-//		int index = view.cbFrequency.getSelectedIndex();
 		int frequency = 0;
 		try {
 			frequency = (int) items;
@@ -319,8 +326,7 @@ public class MainController implements ActionListener{
 				updateListOfWords();
 			}
 		});
-		
-		
+
 		view.list.addMouseListener(new MouseAdapter() {
 	    	@Override
 	    	public void mouseClicked(MouseEvent arg0) {

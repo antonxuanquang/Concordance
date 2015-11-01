@@ -37,7 +37,7 @@ public class Splitter {
 	
 	static ArrayList<String> splitIntoWords (String sentence) {
 		ArrayList<String> words = new ArrayList<String>();
-		sentence = sentence.replaceAll("[-!?,.'`:;_\"--(){}1234567890\\[\\]><\t\b\f\r\']", "");
+		sentence = sentence.replaceAll("[-!?,.'`:;_\"--(){}1234567890\\[\\]><]", "");
 		String[] strs = sentence.split("\\s+");
 		for (String word: strs) {
 			words.add(word.toLowerCase());

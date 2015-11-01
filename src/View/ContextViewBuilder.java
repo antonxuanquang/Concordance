@@ -29,7 +29,7 @@ public class ContextViewBuilder {
 		JTextArea rightTA = new JTextArea();
 		
 		ContextNode temp = node.getContextLink();
-		while (temp != null) {			
+		while (temp != null) {
 			rightTA.append("-Context: " + temp.getContext() + "\n");
 			rightTA.append("-Paragraph Number: " + temp.getParagraphNum() + "\n");
 			rightTA.append("-Sentence Number: " + temp.getSentenceNum() + "\n");

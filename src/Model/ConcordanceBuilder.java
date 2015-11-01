@@ -25,7 +25,7 @@ public class ConcordanceBuilder {
 	public static WordNode buildConcordance (HashMap<String, Integer> commonWords) throws FileNotFoundException{
 //		String fileName = getFileName();
 		String fileName = "C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\"
-				+ "Fall 2015\\CoSc 20803\\Concordance\\AChristmasCarol(large).txt";
+				+ "Fall 2015\\CoSc 20803\\Concordance\\AChristmasCarol.txt";
 		
 //		FirstParagraph, AChristmasCarol, AChristmasCarol(large), AliceInWonderland(large)
 //		DrJekyllAndMrHyde(large), GulliversTravels(large)
@@ -52,7 +52,7 @@ public class ConcordanceBuilder {
 					for (String word: words) {
 						if (!commonWords.containsKey(word)) {
 							ArrayList<Object> context = new ArrayList<Object> ();
-							context.add(paragraph);
+							context.add(sentence);
 							context.add(paragraphCount);
 							context.add(sentenceCount);
 							concordanceTree.addNode(word, context);
