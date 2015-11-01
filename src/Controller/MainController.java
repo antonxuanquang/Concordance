@@ -1,25 +1,28 @@
 package Controller;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import Interface.WordNode;
 import Model.Concordance;
 import View.ContextViewBuilder;
 import View.Lab2View;
 
-public class MainController implements ActionListener, MouseListener{
+public class MainController implements ActionListener{
 	
 	private Lab2View view;
 	private Concordance model;
+	private ArrayList<Integer> frequencyArray;
 	
 	public MainController (Lab2View fromView) {
 		view = fromView;
@@ -61,27 +64,11 @@ public class MainController implements ActionListener, MouseListener{
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE);
 		}
 	}
-
 	
-	
-	public void displayAllConcordance() {		
-		view.resultPanel.removeAll();
-		WordNode tree = model.getTree();
-		WordNode temp = tree;
-		do {
-			temp = tree.findInOrderSuccessor(temp);
-			if (temp != tree) {
-				ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
-			}
-		} while (temp != tree);
-		view.validate();
-		view.repaint();		
-	}
-
 	private void updateListOfWordsAndCBOfFrequency(WordNode tree) {
 		view.listOfWords.removeAllElements();
 		WordNode temp = tree;
-		ArrayList<Integer> frequencyArray = new ArrayList<Integer>();
+		frequencyArray = new ArrayList<Integer>();
 		do {
 			temp = tree.findInOrderSuccessor(temp);
 			if (temp != tree) {
@@ -89,7 +76,7 @@ public class MainController implements ActionListener, MouseListener{
 				frequencyArray = updateArrayOfFrequency(temp, frequencyArray);
 			}
 		} while (temp != tree);
-		updateCBOfFrequency(frequencyArray);		
+		updateCBOfFrequency(frequencyArray);	
 	}
 
 	private void updateListOfWords(WordNode temp) {
@@ -112,6 +99,25 @@ public class MainController implements ActionListener, MouseListener{
 			view.cbFrequency.addItem(item);
 		}
 	}
+	
+	
+	
+	
+	public void displayAllConcordance() {		
+		view.resultPanel.removeAll();
+		WordNode tree = model.getTree();
+		WordNode temp = tree;
+		do {
+			temp = tree.findInOrderSuccessor(temp);
+			if (temp != tree) {
+				ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
+			}
+		} while (temp != tree);
+		view.validate();
+		view.repaint();		
+	}
+
+	
 	
 	
 	private void displaySelectedWord() {
@@ -186,7 +192,7 @@ public class MainController implements ActionListener, MouseListener{
 		view.resultPanel.removeAll();
 		
 		int index = view.list.getSelectedIndex();
-		if (index > 0) {
+		if (index >= 0) {
 			view.list.setSelectedIndex(index + 1);
 		} else {
 			view.list.setSelectedIndex(0);
@@ -230,21 +236,37 @@ public class MainController implements ActionListener, MouseListener{
 		} while (temp != tree);
 	}
 	
-	
-	
-	
-
 	private void displayWordByFrequency() {
+		view.resultPanel.removeAll();
 		
+		Object items = view.cbFrequency.getSelectedItem();
+//		int index = view.cbFrequency.getSelectedIndex();
+		int frequency = 0;
+		try {
+			frequency = (int) items;
+		} catch (ClassCastException e) {}
+		if (frequency == 0) return; 
+		WordNode tree = model.getTree();
+		WordNode temp = tree;
+		do {
+			temp = tree.findInOrderSuccessor(temp);
+			if (temp != tree) {
+				if (temp.getCount() == frequency) {
+					ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
+				}
+			}
+		} while (temp != tree);
+		view.validate();
+		view.repaint();
 	}
 	
 	private void displayBiggest() {
-		
+		int lastIndex = view.cbFrequency.getItemCount() - 1;
+		view.cbFrequency.setSelectedIndex(lastIndex);
 	}
 
-
 	private void displaySmallest() {
-		
+		view.cbFrequency.setSelectedIndex(1);
 	}
 	
 
@@ -264,8 +286,19 @@ public class MainController implements ActionListener, MouseListener{
 		view.btnLast.addActionListener(this);
 		view.cbFrequency.addActionListener(this);
 		
-
-		view.list.addMouseListener(this);
+		view.tfSearch.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+			}
+		});
+		
+		
+		view.list.addMouseListener(new MouseAdapter() {
+	    	@Override
+	    	public void mouseClicked(MouseEvent arg0) {
+	    		displaySelectedWord();
+	    	}
+	    });
 	}
 	
 	//invoke Action Listener 
@@ -284,37 +317,14 @@ public class MainController implements ActionListener, MouseListener{
 		else if (events.equals(view.cbFrequency)) displayWordByFrequency();
 	}
 
-
-	public void mouseClicked(MouseEvent e) {
-		Object events = e.getSource();
-		if (events.equals(view.list)) displaySelectedWord();
-	}
-
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	//getters and setters
 	public Lab2View getView() {
 		return view;
 	}
 	
 	
+	//for test class
+	public WordNode getTree() {
+		return model.getTree();
+	}
 }

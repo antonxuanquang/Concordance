@@ -19,7 +19,7 @@ public class Lab2Test extends JFrame{
 		control.loadCommonWords();
 		control.buildConcordance();
 //		control.displayAllConcordance();
-//		WordNode tree = control.getModel().getTree();
+//		WordNode tree = control.getTree();
 //		System.out.println(tree.tInOrder());
 		
 //		long start = System.nanoTime();

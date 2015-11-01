@@ -25,7 +25,7 @@ public class ConcordanceBuilder {
 	public static WordNode buildConcordance (HashMap<String, Integer> commonWords) throws FileNotFoundException{
 //		String fileName = getFileName();
 		String fileName = "C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\"
-				+ "Fall 2015\\CoSc 20803\\Concordance\\AChristmasCarol.txt";
+				+ "Fall 2015\\CoSc 20803\\Concordance\\AChristmasCarol(large).txt";
 		
 //		FirstParagraph, AChristmasCarol, AChristmasCarol(large), AliceInWonderland(large)
 //		DrJekyllAndMrHyde(large), GulliversTravels(large)
