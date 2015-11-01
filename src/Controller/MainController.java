@@ -22,7 +22,6 @@ public class MainController implements ActionListener{
 	
 	private Lab2View view;
 	private Concordance model;
-	private ArrayList<Integer> frequencyArray;
 	
 	public MainController (Lab2View fromView) {
 		view = fromView;
@@ -67,13 +66,13 @@ public class MainController implements ActionListener{
 	
 	private void updateListOfWordsAndCBOfFrequency(WordNode tree) {
 		view.listOfWords.removeAllElements();
+		ArrayList<Integer> frequencyArray = new ArrayList<Integer>();
 		WordNode temp = tree;
-		frequencyArray = new ArrayList<Integer>();
 		do {
 			temp = tree.findInOrderSuccessor(temp);
 			if (temp != tree) {
 				updateListOfWords(temp);
-				frequencyArray = updateArrayOfFrequency(temp, frequencyArray);
+				updateArrayOfFrequency(temp, frequencyArray);
 			}
 		} while (temp != tree);
 		updateCBOfFrequency(frequencyArray);	
@@ -118,6 +117,29 @@ public class MainController implements ActionListener{
 	}
 
 	
+	
+	private void updateListOfWords() {
+		String searchKey = view.tfSearch.getText();
+		System.out.println(searchKey);
+		ArrayList<String> resultArray = new ArrayList<String>();
+		
+		WordNode tree = model.getTree();
+		WordNode temp = tree;
+		do {
+			temp = tree.findInOrderSuccessor(temp);
+			if (temp != tree) {
+				if (temp.getWord().contains(searchKey)) {
+					resultArray.add(temp.getWord());
+				}
+			}
+		} while (temp != tree);
+		
+//		update GUI
+		view.listOfWords.removeAllElements();
+		for (String value: resultArray) {
+			view.listOfWords.addElement(value);
+		}
+	}
 	
 	
 	private void displaySelectedWord() {
@@ -236,6 +258,9 @@ public class MainController implements ActionListener{
 		} while (temp != tree);
 	}
 	
+	
+	
+	
 	private void displayWordByFrequency() {
 		view.resultPanel.removeAll();
 		
@@ -244,7 +269,7 @@ public class MainController implements ActionListener{
 		int frequency = 0;
 		try {
 			frequency = (int) items;
-		} catch (ClassCastException e) {}
+		} catch (Exception e) {}
 		if (frequency == 0) return; 
 		WordNode tree = model.getTree();
 		WordNode temp = tree;
@@ -272,8 +297,10 @@ public class MainController implements ActionListener{
 
 	//set up Listeners
 	
-
 	
+	
+	
+	//set up Listeners
 	void setUpListeners () {
 		view.btnDisplayAll.addActionListener(this);
 		view.btnGetBiggest.addActionListener(this);
@@ -288,7 +315,8 @@ public class MainController implements ActionListener{
 		
 		view.tfSearch.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent arg0) {
+			public void keyReleased(KeyEvent arg0) {
+				updateListOfWords();
 			}
 		});
 		

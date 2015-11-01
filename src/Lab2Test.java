@@ -13,7 +13,7 @@ public class Lab2Test extends JFrame{
 		new Lab2Test();
 	}
 	
-	public Lab2Test() {
+	public Lab2Test(){
 		Lab2 lab2 = new Lab2();
 		MainController control = new MainController(lab2.getView());
 		control.loadCommonWords();
