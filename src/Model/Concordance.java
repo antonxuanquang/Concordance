@@ -8,7 +8,7 @@ import Interface.WordNode;
 
 public class Concordance {
 	
-	HashMap<String, Integer> commonWords;
+	HashMap<String, Integer> commonWords = new HashMap<String, Integer>();
 	WordNode concordanceTree;
 	
 	public Concordance() {
@@ -32,5 +32,9 @@ public class Concordance {
 	
 	public WordNode getTree() {
 		return concordanceTree;
+	}
+	
+	public void resetCommonWordsHashTable() {
+		commonWords = new HashMap<String, Integer>();
 	}
 }

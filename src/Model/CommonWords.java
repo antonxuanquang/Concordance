@@ -14,9 +14,9 @@ public class CommonWords{
 	public CommonWords() {}
 	
 	public static HashMap<String, Integer> buildCommonWordsHash() throws FileNotFoundException{
-//		String fileName = getFileName();
-		String fileName = "C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\"
-				+ "Fall 2015\\CoSc 20803\\Concordance\\MostCommonWords.txt";
+		String fileName = getFileName();
+//		String fileName = "C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\"
+//				+ "Fall 2015\\CoSc 20803\\Concordance\\MostCommonWords.txt";
 		
 		if (fileName == null) {
 			throw new FileNotFoundException("Unsuccessfully load common words file !! ");

@@ -76,7 +76,6 @@ public class Lab2View extends JPanel {
 		panel.add(btnLoadCommonWords , "alignx center, aligny center, sg middleButton, wrap");
 		
 		btnBuildConcordance = new QButton("Load Text File");
-		btnBuildConcordance.setEnabled(false);
 		panel.add(btnBuildConcordance, "alignx center, aligny center, sg middleButton, wrap");
 		
 		btnDisplayAll = new QButton("Display All");

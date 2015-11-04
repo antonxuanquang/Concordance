@@ -40,7 +40,9 @@ public class Splitter {
 		sentence = sentence.replaceAll("[-!?,.'`:;_\"--(){}1234567890\\[\\]><]", "");
 		String[] strs = sentence.split("\\s+");
 		for (String word: strs) {
-			words.add(word.toLowerCase());
+			if (!word.equals("")) {
+				words.add(word.toLowerCase());
+			}
 		}
 		return words;
 	}

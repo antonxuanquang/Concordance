@@ -17,7 +17,6 @@ import javax.swing.event.ListSelectionListener;
 
 import Interface.WordNode;
 import Model.Concordance;
-import Theme.PrintASCII;
 import View.ContextViewBuilder;
 import View.Lab2View;
 
@@ -35,17 +34,33 @@ public class MainController implements ActionListener{
 	
 	
 	public void loadCommonWords() {
+		if (view.btnLoadCommonWords.getText().equals("Load Common Words File")) {
+			addCommonWords();
+		} else {
+			removeCommonWords();
+		}
+		
+	}
+	
+	private void addCommonWords() {
 		try {
 			// model
 			model.buildCommonWordsHash();
 			//gui
-			view.btnLoadCommonWords.setEnabled(false);
+			view.btnLoadCommonWords.setText("Remove Common Words File");
 			view.btnBuildConcordance.setEnabled(true);
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE);
-		}
+		}		
 	}
+
+	private void removeCommonWords() {
+		model.resetCommonWordsHashTable();
+		view.btnLoadCommonWords.setText("Load Common Words File");
+	}
+
 	
+
 	public void buildConcordance() {
 		try {
 			// model
@@ -114,16 +129,15 @@ public class MainController implements ActionListener{
 			if (temp != tree) {
 				ContextViewBuilder.buildContextPanel(temp, view.resultPanel);
 			}
-		} while (temp != tree);
+		} while (temp != tree);	
 		view.validate();
-		view.repaint();		
+		view.repaint();	
 	}
 
 	
 	
 	private void updateListOfWords() {
 		String searchKey = view.tfSearch.getText();
-		System.out.println(searchKey);
 		ArrayList<String> resultArray = new ArrayList<String>();
 		
 		WordNode tree = model.getTree();
@@ -131,7 +145,7 @@ public class MainController implements ActionListener{
 		do {
 			temp = tree.findInOrderSuccessor(temp);
 			if (temp != tree) {
-				if (temp.getWord().contains(searchKey)) {
+				if (temp.getWord().startsWith(searchKey.toLowerCase())) {
 					resultArray.add(temp.getWord());
 				}
 			}
