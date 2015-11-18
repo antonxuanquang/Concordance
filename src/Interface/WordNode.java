@@ -62,7 +62,14 @@ public class WordNode implements WordNodeInterface {
 		return isLeftTheaded;
 	}
 	
+	
+	
 	//methods operate on trees
+	/**
+	 * Set the root node to be head.
+	 * Set left non-threaded link pointing to itself.
+	 * Set right threaded link pointing to itself.
+	 */
 	public void buildHead() {
 		setWord("Head");
 		setRight(this);
@@ -70,20 +77,23 @@ public class WordNode implements WordNodeInterface {
 		setLeft(this);
 		setLeftThread(true);
 	}
-	
+
+	/**
+	 * 
+	 * Construct threaded binary search tree.  
+	 * 
+	 * @param word word from data set
+	 * @param context sentence in the data set where word is sitting in.
+	 */
 	public void addNode(String word, ArrayList<Object> context) {
 		if (isLeftThreaded()) {
-			//adding data
-			WordNode node = createAReadyNode(word, context);
-			
-			//set to the left of Head node
-			insertToLeft(node);
-			
-			//finish adding first node
+			WordNode node = createAReadyNode(word, context); //adding data
+			insertToLeft(node); //set to the left of Head node
 			return;
 		}
 		WordNode head = this;
 		WordNode temp = head.getLeft();
+		
 		//looking for the right place to insert, i.e. temp location
 		while (temp != head) {
 			if ((word.compareTo(temp.getWord()) < 0)) {
@@ -107,15 +117,23 @@ public class WordNode implements WordNodeInterface {
 				return;
 			}
 		}
-//		System.out.println(word);
-//		System.out.println(temp.getWord());
-//		System.out.println("" + word.compareTo(temp.getWord()));
 	}
 
+	
+	/**
+	 * 
+	 * Creat a Word Node ready to be added into tree.
+	 * 
+	 * @param word Words from text file.
+	 * @param context Sentence where the the word is sitting in. 
+	 * @return Word Word containing data (word, count and context data).
+	 */
 	private WordNode createAReadyNode(String word, ArrayList<Object> context) {
 		WordNode node = new WordNode();
 		node.setWord(word);
 		node.setCount(1);
+		
+		
 		ContextNode contextNode = new ContextNode();
 		contextNode.setContext((String) context.get(0));
 		contextNode.setParagraphNum((int)context.get(1));
@@ -124,6 +142,13 @@ public class WordNode implements WordNodeInterface {
 		return node;
 	}
 	
+	
+	/**
+	 * 
+	 * Algorithm: Staring from head of the tree, visit in order successor of currently visiting node until reaching the root.
+	 * 
+	 * @return String that contains all words and its context in the file.
+	 */
 	public String tInOrder() {
 		String result = "";
 		WordNode head = this;
@@ -138,6 +163,13 @@ public class WordNode implements WordNodeInterface {
 		return result;
 	}
 	
+	/**
+	 * 
+	 * Algorithm: One to the right, all to the left if not right-threaded. 
+	 * 
+	 * @param temp currently visiting Word Node
+	 * @return in order successor of the visiting Word Node
+	 */
 	public WordNode findInOrderSuccessor(WordNode temp) {
 		WordNode node = temp.getRight();
 		if (!temp.isRightThreaded()) {
@@ -148,12 +180,25 @@ public class WordNode implements WordNodeInterface {
 		return node;
 	}
 
+	
+	
 	//methods operate on nodes
-	public void incrementCount() {
+	/**
+	 * Increment the count
+	 */
+	private void incrementCount() {
 		count++;
 	}
 	
-	public void insertToLeft(WordNode node) {
+	/**
+	 * 
+	 * 1. Set right threaded link to the node preceding node in parameter
+	 * 2. Left link has the same property of the node preceding node in parameter
+	 * 3. Set left link of preceding node to the node in parameter 
+	 * 
+	 * @param node Word Node about to be added into tree
+	 */
+	private void insertToLeft(WordNode node) {
 		node.setRight(this);
 		node.setRightThread(true);
 		node.setLeft(getLeft());
@@ -162,7 +207,15 @@ public class WordNode implements WordNodeInterface {
 		setLeftThread(false);
 	}
 	
-	public void insertToRight(WordNode node) {
+	/***
+	 * 
+	 * 1. Set right threaded link to the node preceding node in parameter
+	 * 2. Left link has the same property of the node preceding node in parameter
+	 * 3. Set left link of preceding node to the node in parameter 
+	 * 
+	 * @param node Word Node about to be added into tree
+	 */
+	private void insertToRight(WordNode node) {
 		node.setLeft(this);
 		node.setLeftThread(true);
 		node.setRight(getRight());
@@ -171,6 +224,9 @@ public class WordNode implements WordNodeInterface {
 		setRightThread(false);
 	}
 	
+	/** 
+	 * @param context Array of Context
+	 */
 	private void updateContextData(ArrayList<Object> context) {
 		incrementCount();
 		ContextNode node = getContextLink();
@@ -183,5 +239,36 @@ public class WordNode implements WordNodeInterface {
 		result += "Word: " + word + " \n";
 		result += getContextLink().toString();		
 		return result;
+	}
+
+	public WordNode delete() {
+		if (isLeftThreaded()) {
+			WordNode temp = getRight();
+			temp.setRightThread(getRightThreaded());
+			return temp;
+		} else if (isRightThreaded()) {
+			WordNode temp = getLeft();
+			temp.setLeftThread(getLeftThreaded());
+			return temp;
+		} else {
+			WordNode temp = getRight();
+			WordNode successor = this ;
+			if (!temp.isLeftThreaded()) {
+				while (!temp.isLeftThreaded()) {
+					successor = temp;
+					temp = temp.getLeft();
+				}
+				if (temp.isRightThreaded()) {
+					successor.setLeft(temp);
+				} else {
+					successor.setLeft(temp.getRight());
+				}
+				temp.setRight(getRight());
+				temp.setRightThread(getRightThreaded());
+			}
+			temp.setLeft(getLeft());
+			temp.setLeftThread(getLeftThreaded()); 
+			return temp;
+		}
 	}
 }

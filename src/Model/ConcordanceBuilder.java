@@ -24,11 +24,6 @@ public class ConcordanceBuilder {
 	
 	public static WordNode buildConcordance (HashMap<String, Integer> commonWords) throws FileNotFoundException{
 		String fileName = getFileName();
-//		String fileName = "C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\"
-//				+ "Fall 2015\\CoSc 20803\\Concordance\\AChristmasCarol.txt";
-		
-//		FirstParagraph, AChristmasCarol, AChristmasCarol(large), AliceInWonderland(large)
-//		DrJekyllAndMrHyde(large), GulliversTravels(large)
 		
 		
 		WordNode concordanceTree = new WordNode();
@@ -65,9 +60,14 @@ public class ConcordanceBuilder {
 	}
 	
 	
-	
+	/**
+	 * 
+	 * Get path of a file
+	 * 
+	 * @return Path leading to selected file
+	 */
 	static String getFileName() {
-		JFileChooser fc = new JFileChooser("C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\Fall 2015\\CoSc 20803\\Concordance");
+		JFileChooser fc = new JFileChooser("C:\\");
 		int returnVal = fc.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION)
 			return fc.getSelectedFile().getPath();

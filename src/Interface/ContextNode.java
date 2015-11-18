@@ -36,9 +36,10 @@ public class ContextNode {
 	}
 	
 	
-	// methods operate on individual node
-	
-	//methods operate on links
+	/**
+	 * Loop through context link and concat context string into result variable
+	 * @return String of all contexts begin from the Context Node calling this method
+	 */
 	@Override
 	public String toString() {
 		String result = "";
@@ -50,6 +51,9 @@ public class ContextNode {
 		return result;
 	}
 	
+	/**
+	 * @return The last node of Context Link, could be itself.
+	 */
 	private ContextNode getLastNode() {
 		ContextNode node = this;
 		while (node.getNext() != null) {
@@ -58,6 +62,10 @@ public class ContextNode {
 		return node;
 	}
 	
+	/**
+	 * Create a new Context Node, add data, then append it to the link.
+	 * @param context Array of context: context string at the first item, paragraph number at the 2nd item, sentence number at the 3rd item
+	 */
 	public void addContext(ArrayList<Object> context) {
 		ContextNode node = new ContextNode();
 		node.setContext((String) context.get(0));

@@ -13,10 +13,16 @@ public class CommonWords{
 	
 	public CommonWords() {}
 	
+	
+	/**
+	 * 
+	 * Build Hash map that contains all the common words
+	 * 
+	 * @return Hash Map that contains all the common words being the keys.
+	 * @throws FileNotFoundException When user fail to load a file.
+	 */
 	public static HashMap<String, Integer> buildCommonWordsHash() throws FileNotFoundException{
 		String fileName = getFileName();
-//		String fileName = "C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\"
-//				+ "Fall 2015\\CoSc 20803\\Concordance\\MostCommonWords.txt";
 		
 		if (fileName == null) {
 			throw new FileNotFoundException("Unsuccessfully load common words file !! ");
@@ -44,8 +50,14 @@ public class CommonWords{
 		return hash;
 	}
 	
+	/**
+	 * 
+	 * Get path of a file
+	 * 
+	 * @return Path leading to selected file
+	 */
 	static String getFileName() {
-		JFileChooser fc = new JFileChooser("C:\\Users\\Quang Nguyen\\OneDrive\\mon hoc\\Fall 2015\\CoSc 20803\\Concordance");
+		JFileChooser fc = new JFileChooser("C:\\");
 		int returnVal = fc.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION)
 			return fc.getSelectedFile().getPath();

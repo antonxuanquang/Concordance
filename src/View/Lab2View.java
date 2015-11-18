@@ -43,7 +43,7 @@ public class Lab2View extends JPanel {
 	public QTextField tfSearch;
 	public QButton btnLoadCommonWords, btnDisplayAll, btnSearch, 
 		btnGetSmallest, btnBuildConcordance, btnGetBiggest, btnFirst, btnLast,
-		btnPrevious, btnNext;
+		btnPrevious, btnNext, btnDelete;
 	public JComboBox cbFrequency;
 	public DefaultListModel listOfWords;
 	public JList list;
@@ -104,6 +104,10 @@ public class Lab2View extends JPanel {
 		btnLast = new QButton("Last");
 		btnLast.setEnabled(false);
 		panel.add(btnLast, "wrap");
+		
+		btnDelete = new QButton("Delete");
+		btnDelete.setEnabled(false);
+		panel.add(btnDelete, "sg middleButton, wrap");
 		
 		
 		QLabel lblSearch = new QLabel("Search: ");
